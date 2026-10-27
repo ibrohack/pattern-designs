@@ -5,7 +5,7 @@ Java exercises for practising software design patterns. Each pattern has its own
 | Pattern | Exercises | Status |
 | --- | --- | --- |
 | [Observer](#observer--observer) | 2 | Done |
-| [Factory](#factory--factory) | 2 | Exercise 1 done, exercise 2 in progress |
+| [Factory](#factory--factory) | 2 | Done |
 
 ## Patterns
 
@@ -43,7 +43,7 @@ A factory class centralises object creation. The client asks for an object by ty
 
 Each Factory exercise is split into a `model` package (interface, concrete classes and factory) and a `main` package (the client).
 
-#### Exercise 1 — Notifications (`src/factory/ej1`)
+#### Exercise 1 — Notifications (`factory.ej1`)
 
 An application sends notifications through different channels.
 
@@ -55,9 +55,7 @@ An application sends notifications through different channels.
 | `NotificacionFactory` | `crear(String tipo)` returns an `Email` for `"email"`, an `Sms` for `"sms"`, and `null` for anything else |
 | `Main` | Sends an email and an SMS, then shows that `"whatsapp"` is not supported |
 
-The classes in this exercise are declared in the packages `main` and `model`, so the entry point is `main.Main`.
-
-#### Exercise 2 — Payment methods (`factory.ej2`) — in progress
+#### Exercise 2 — Payment methods (`factory.ej2`)
 
 An online shop processes payments with different methods.
 
@@ -70,8 +68,6 @@ An online shop processes payments with different methods.
 | `Main` | Pays by card and by PayPal, then catches the error for `"bizum"` |
 
 Unlike exercise 1, the factory throws an exception instead of returning `null`, so the client cannot forget to handle an unsupported type.
-
-This exercise does not compile yet: `Tarjeta` and `PayPal` still declare `package model;` instead of `package factory.ej2.model;`.
 
 ## Project structure
 
@@ -105,9 +101,10 @@ javac -encoding UTF-8 -d bin src/observer/ejercicio1/*.java src/observer/ejercic
 java -cp bin observer.ejercicio1.Main
 java -cp bin observer.ejercicio2.Main
 
-# Factory, exercise 1
-javac -encoding UTF-8 -d bin src/factory/ej1/main/*.java src/factory/ej1/model/*.java
-java -cp bin main.Main
+# Factory
+javac -encoding UTF-8 -d bin src/factory/ej1/main/*.java src/factory/ej1/model/*.java src/factory/ej2/main/*.java src/factory/ej2/model/*.java
+java -cp bin factory.ej1.main.Main
+java -cp bin factory.ej2.main.Main
 ```
 
 Observer exercise 2 writes `estadisticas.txt` to the current working directory, appending to it on every run.
