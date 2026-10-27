@@ -1,4 +1,4 @@
-package model;
+package factory.ej2.model;
 
 public class PayPal implements MetodoPago {
     @Override

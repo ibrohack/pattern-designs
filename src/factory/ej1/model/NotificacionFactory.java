@@ -1,6 +1,9 @@
-package model;
+package factory.ej1.model;
 
 public class NotificacionFactory {
+
+    private NotificacionFactory() {
+    }
 
     public static Notificacion crear(String tipo) {
         if ("email".equals(tipo)) {

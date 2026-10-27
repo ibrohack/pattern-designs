@@ -1,6 +1,7 @@
-package main;
-import model.Notificacion;
-import model.NotificacionFactory;
+package factory.ej1.main;
+
+import factory.ej1.model.Notificacion;
+import factory.ej1.model.NotificacionFactory;
 
 public class Main {
     public static void main(String[] args) {

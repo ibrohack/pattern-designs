@@ -3,6 +3,9 @@ package factory.ej2.model;
 // Encapsula la creación de los métodos de pago y decide qué clase concreta crear.
 public class MetodoPagoFactory {
 
+    private MetodoPagoFactory() {
+    }
+
     public static MetodoPago crear(String tipo) {
         if ("tarjeta".equals(tipo)) {
             return new Tarjeta();
