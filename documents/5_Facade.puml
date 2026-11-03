@@ -1,0 +1,34 @@
+@startuml Facade
+skinparam classAttributeIconSize 0
+
+class ControladorAsistencia {
+  - fachada : FachadaInformes
+  + ControladorAsistencia(fachada : FachadaInformes)
+  + descargarInforme(idAlumno : String) : void
+}
+
+class FachadaInformes {
+  - servicioFaltas : ServicioFaltas
+  - calculadora : CalculadoraAsistencia
+  - generadorPDF : GeneradorPDF
+  + FachadaInformes(servicioFaltas : ServicioFaltas, calculadora : CalculadoraAsistencia, generadorPDF : GeneradorPDF)
+  + generarInformeMensual(idAlumno : String) : void
+}
+
+package "Subsistema" {
+  class ServicioFaltas {
+    + buscarDelMes(idAlumno : String) : List<Falta>
+  }
+  class CalculadoraAsistencia {
+    + calcularPorcentaje(faltas : List<Falta>) : double
+  }
+  class GeneradorPDF {
+    + generar(idAlumno : String, faltas : List<Falta>, porcentaje : double) : void
+  }
+}
+
+ControladorAsistencia "1" --> "1" FachadaInformes : usa
+FachadaInformes "1" --> "1" ServicioFaltas
+FachadaInformes "1" --> "1" CalculadoraAsistencia
+FachadaInformes "1" --> "1" GeneradorPDF
+@enduml

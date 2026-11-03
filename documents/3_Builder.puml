@@ -1,0 +1,37 @@
+@startuml Builder
+skinparam classAttributeIconSize 0
+left to right direction
+
+class Persona {
+  - nombre : String
+  - apellidos : String
+  - edad : int
+  - email : String
+  - Persona(builder : Builder)
+}
+
+class Builder {
+  - nombre : String
+  - apellidos : String
+  - edad : int
+  - email : String
+  + nombre(nombre : String) : Builder
+  + apellidos(apellidos : String) : Builder
+  + edad(edad : int) : Builder
+  + email(email : String) : Builder
+  + build() : Persona
+}
+
+note top of Builder
+  Clase estática anidada:
+  Persona.Builder
+end note
+
+note left of Persona
+  Con Lombok, @Builder genera
+  esta clase automáticamente
+end note
+
+Builder ..> Persona : <<crea>>
+Persona ..> Builder
+@enduml

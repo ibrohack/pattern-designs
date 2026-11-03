@@ -1,0 +1,35 @@
+@startuml DAO
+skinparam classAttributeIconSize 0
+
+class UsuarioService {
+  - dao : UsuarioDAO
+  + buscarUsuario(id : int) : Usuario
+}
+
+interface UsuarioDAO {
+  + buscarPorId(id : int) : Usuario
+  + guardar(usuario : Usuario) : void
+  + eliminar(id : int) : void
+}
+
+class UsuarioDAOJDBC {
+  + buscarPorId(id : int) : Usuario
+  + guardar(usuario : Usuario) : void
+  + eliminar(id : int) : void
+}
+
+class Usuario {
+  - id : int
+}
+
+note right of UsuarioDAOJDBC
+  Detalles de acceso a datos:
+  Connection, PreparedStatement,
+  SQL, ResultSet
+end note
+
+UsuarioService "1" --> "1" UsuarioDAO : usa
+UsuarioDAO <|.. UsuarioDAOJDBC
+UsuarioService ..> Usuario
+UsuarioDAO ..> Usuario
+@enduml

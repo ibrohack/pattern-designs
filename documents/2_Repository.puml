@@ -1,0 +1,33 @@
+@startuml Repository
+skinparam classAttributeIconSize 0
+
+class UsuarioService {
+  - repository : UsuarioRepository
+  + UsuarioService(repository : UsuarioRepository)
+  + buscar(id : int) : Usuario
+}
+
+interface UsuarioRepository
+
+interface "JpaRepository<Usuario, Integer>" as JpaRepository {
+  + findById(id : Integer) : Optional<Usuario>
+  + findAll() : List<Usuario>
+  + save(usuario : Usuario) : Usuario
+  + delete(usuario : Usuario) : void
+}
+
+class Usuario {
+  - id : int
+}
+
+note left of UsuarioRepository
+  @Repository
+  Spring Data genera la
+  implementación automáticamente
+end note
+
+UsuarioService "1" --> "1" UsuarioRepository : usa
+JpaRepository <|-- UsuarioRepository
+JpaRepository ..> Usuario
+UsuarioService ..> Usuario
+@enduml

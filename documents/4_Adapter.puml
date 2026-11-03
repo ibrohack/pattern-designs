@@ -1,0 +1,37 @@
+@startuml Adapter
+skinparam classAttributeIconSize 0
+
+class Main {
+  + {static} main(args : String[]) : void
+}
+
+interface MediaPlayer {
+  + play() : void
+}
+
+class SonyMediaPlayer {
+  + play() : void
+}
+
+class Adapter {
+  - mediaPlayer : IncompatibleMediaPlayer
+  + Adapter()
+  + play() : void
+}
+
+class IncompatibleMediaPlayer {
+  + IncompatibleMediaPlayer()
+  + ejecutar() : void
+}
+
+note right of IncompatibleMediaPlayer
+  Clase de un proveedor externo
+  (no se puede modificar)
+end note
+
+MediaPlayer <|.. SonyMediaPlayer
+MediaPlayer <|.. Adapter
+Adapter "1" *-- "1" IncompatibleMediaPlayer
+Main ..> SonyMediaPlayer
+Main ..> Adapter
+@enduml
