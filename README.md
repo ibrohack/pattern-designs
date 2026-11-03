@@ -6,6 +6,7 @@ Java exercises for practising software design patterns. Each pattern has its own
 | --- | --- | --- |
 | [Observer](#observer--observer) | 2 | Done |
 | [Factory](#factory--factory) | 2 | Done |
+| [Adapter](#adapter--adapter) | 1 | Done |
 
 ## Patterns
 
@@ -69,6 +70,23 @@ An online shop processes payments with different methods.
 
 Unlike exercise 1, the factory throws an exception instead of returning `null`, so the client cannot forget to handle an unsupported type.
 
+### Adapter — `adapter`
+
+An adapter wraps an existing class with an incompatible interface and exposes the interface the client expects. Neither the client nor the wrapped class has to change.
+
+The exercise follows the Factory layout: a `model` package and a `main` package. Class names are in English because the exercise statement defines them that way.
+
+#### Exercise 1 — Temperature sensor (`adapter.ej1`)
+
+A weather application works in Celsius, but a legacy sensor only gives readings in Fahrenheit.
+
+| Class | Role |
+| --- | --- |
+| `TemperatureProvider` | Target interface the weather app expects: `getTemperatureCelsius()` |
+| `FahrenheitSensor` | Legacy sensor (adaptee): stores a Fahrenheit value set in the constructor and returns it from `readFahrenheit()` |
+| `SensorAdapter` | Implements `TemperatureProvider`, wraps a `FahrenheitSensor` and converts with `(fahrenheit - 32) * 5 / 9` |
+| `Main` | Reads a Fahrenheit value from standard input, uses the sensor through a `TemperatureProvider` variable and prints `Temperature: [celsius] C` with one decimal |
+
 ## Project structure
 
 ```text
@@ -76,11 +94,15 @@ src/
 ├── observer/
 │   ├── ejercicio1/          Temperature alerts
 │   └── ejercicio2/          Video game scores
-└── factory/
-    ├── ej1/                 Notifications
-    │   ├── main/
-    │   └── model/
-    └── ej2/                 Payment methods
+├── factory/
+│   ├── ej1/                 Notifications
+│   │   ├── main/
+│   │   └── model/
+│   └── ej2/                 Payment methods
+│       ├── main/
+│       └── model/
+└── adapter/
+    └── ej1/                 Temperature sensor
         ├── main/
         └── model/
 ```
@@ -105,9 +127,15 @@ java -cp bin observer.ejercicio2.Main
 javac -encoding UTF-8 -d bin src/factory/ej1/main/*.java src/factory/ej1/model/*.java src/factory/ej2/main/*.java src/factory/ej2/model/*.java
 java -cp bin factory.ej1.main.Main
 java -cp bin factory.ej2.main.Main
+
+# Adapter
+javac -encoding UTF-8 -d bin src/adapter/ej1/main/*.java src/adapter/ej1/model/*.java
+java -cp bin adapter.ej1.main.Main
 ```
 
 Observer exercise 2 writes `estadisticas.txt` to the current working directory, appending to it on every run.
+
+Adapter exercise 1 waits for a Fahrenheit value on standard input: type it in the terminal and press Enter (e.g. `98.6` prints `Temperature: 37.0 C`). Use a dot as the decimal separator. Avoid piping the value from Windows PowerShell (`"98.6" | java ...`): it prepends a byte order mark that `Scanner` cannot parse.
 
 ## Adding exercises
 
